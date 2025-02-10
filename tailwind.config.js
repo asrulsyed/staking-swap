@@ -8,8 +8,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        bgHeader: 'var(--bg-header)',
+        bgButton: 'var(--bg-button)',
+        bgButtonHover: 'var(--bg-button-hover)',
+        borderHeader: 'var(--border-header)',
+        borderButton: 'var(--border-button)',
+        borderFooter: 'var(--border-footer)',
+        textHeader: 'var(--text-header)',
+        textFooterTitle: 'var(--text-footer-title)',
+        textButton: 'var(--text-button)',
+        textGraph: 'var(--text-graph)',
+        textWhiteButton: 'var(--text-white-button)',
+        textMain: 'var(--text-main)',
+        bgWallet: 'var(--bg-wallet)',
       },
     },
   },

@@ -25,3 +25,69 @@ body {
     text-wrap: balance;
   }
 }
+
+@layer base {
+  html {
+    --bg-header: rgba(255, 255, 255, 0.03);
+    --bg-button: rgba(255, 255, 255, 0.08);
+    --bg-button-hover: rgba(255, 255, 255, 0.1);
+    --border-header: rgba(255, 255, 255, 0.15);
+    --border-button: rgba(255, 255, 255, 0.13);
+    --border-footer: rgba(119, 119, 119, 0.7);
+    --text-header: rgba(119, 119, 119, 1);
+    --text-footer-title: rgba(214, 214, 214, 1);
+    --text-button: rgba(255, 255, 255, 1);
+    --text-graph: rgba(255, 255, 255, 0.8);
+    --text-white-button: rgba(0, 0, 0, 1);
+    --text-main: rgba(226, 226, 226, 1);
+    --bg-wallet: rgba(214, 214, 214, 1);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+/* To hide scrollbar completely while keeping scroll functionality */
+body {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari and Opera */
+}
+
+.glass-button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 80%;
+  height: 20px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  filter: blur(8px);
+}
