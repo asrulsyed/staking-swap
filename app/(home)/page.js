@@ -1,19 +1,31 @@
 'use client'
 
+import TokenSelector from "@/components/TokenSelector";
 import WalletButton from "@/components/WalletButton";
-import { useState } from "react";
-import { FaArrowRight, FaChevronDown } from "react-icons/fa6";
+import { TokenListProvider } from "@solana/spl-token-registry";
+import { useEffect, useState } from "react";
+import { FaArrowRight } from "react-icons/fa6";
 
 export default function Home() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('DIPHIGH');
+  const [selectedNetwork, setSelectedNetwork] = useState('Solana');
+  const [selectedBuy, setSelectedBuy] = useState('SOL');
+  const [selectedSell, setSelectedSell] = useState('SOL');
   const [sellAmount, setSellAmount] = useState(5);
   const [buyAmount, setBuyAmount] = useState(5);
   const [tolerance, setTolerance] = useState(0.1);
+  const [CustomTolerance, setCustomTolerance] = useState("Custom");
+  
 
   const handleSwap = () => {
     console.log("Swap")
   }
+
+  // useEffect(() => {
+  //   new TokenListProvider().resolve().then((tokens) => {
+  //     const tokenList = tokens.filterByClusterSlug('mainnet-beta').getList();
+  //     console.log(tokenList);
+  //   })
+  // }, [])
 
   return (
     <main className="flex flex-col items-center mt-[70px] font-display -z-10 mb-[95px]">
@@ -22,32 +34,11 @@ export default function Home() {
           <p className="leading-[56px] text-2xl font-medium text-white">Swap</p>
           <div className="flex items-center gap-4">
             <span className="text-textMain text-xl font-normal">Network</span>
-            <div className="relative w-[225px]">
-              <div
-                onClick={() => setIsOpen(!isOpen)}
-                className="w-full bg-textWhiteButton border border-borderHeader h-[48px] rounded-lg px-5 text-base font-semibold text-textFooterTitle cursor-pointer flex items-center justify-between"
-              >
-                {selectedOption}
-                <FaChevronDown size={20} color="white" className={`transform transition-transform ${isOpen ? 'rotate-180' : ''}`} />
-              </div>
-
-              {isOpen && (
-                <div className="absolute w-full mt-1 overflow-hidden border rounded-lg bg-textWhiteButton border-borderHeader z-[51]">
-                  {['DIPHIGH'].map((option, index) => (
-                    <div
-                      key={index}
-                      onClick={() => {
-                        setSelectedOption(option);
-                        setIsOpen(false);
-                      }}
-                      className="text-textFooterTitle px-5 py-3 font-semibold transition-colors cursor-pointer hover:bg-borderHeader"
-                    >
-                      {option}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <TokenSelector
+              type="networks"
+              selectedToken={selectedNetwork}
+              onSelect={setSelectedNetwork}
+            />
           </div>
         </div>
         <div className="bg-bgHeader border-textHeader rounded-2xl border px-[58px] py-[67px] flex flex-col gap-[63px] items-stretch">
@@ -56,24 +47,32 @@ export default function Home() {
             <FaArrowRight size={24} color="white" className="-translate-x-1/2 absolute bottom-1/2 left-1/2 translate-y-[calc(50%-44px)]" />
             <div className="flex flex-col gap-4">
               <p className="text-lg">Sell</p>
-              <div className="">
+              <div className="flex items-center gap-3">
                 <input
                   value={sellAmount}
                   onChange={(e) => setSellAmount(parseFloat(e.target.value))}
                   className="border-borderHeader text-bgWallet h-[48px] w-[250px] overflow-hidden px-4 text-base font-semibold bg-black rounded-lg border focus:outline-none"
                 />
-                
+                <TokenSelector
+                  type="tokens"
+                  selectedToken={selectedSell}
+                  onSelect={setSelectedSell}
+                />
               </div>
             </div>
             <div className="flex flex-col gap-4">
               <p className="text-lg">Buy</p>
-              <div className="">
-              <input
+              <div className="flex gap-3">
+                <input
                   value={buyAmount}
                   onChange={(e) => setBuyAmount(parseFloat(e.target.value))}
-                  className="border-borderHeader text-bgWallet h-[48px] w-[250px] overflow-hidden px-4 text-base font-semibold bg-black rounded-lg border focus:outline-none"
+                  className="border-borderHeader text-bgWallet h-[48px] w-[250px] overflow-hidden px-4 text-base font-semibold bg-black rounded-lg  border focus:outline-none"
                 />
-              
+                <TokenSelector
+                  type="tokens"
+                  selectedToken={selectedBuy}
+                  onSelect={setSelectedBuy}
+                />
               </div>
             </div>
             <div className="flex flex-col gap-4">
@@ -108,8 +107,8 @@ export default function Home() {
                 </button>
                 <div className="relative">
                   <input
-                    value={tolerance}
-                    onChange={(e) => setTolerance(parseFloat(e.target.value))}
+                    value={CustomTolerance}
+                    onChange={(e) => setCustomTolerance(parseFloat(e.target.value))}
                     className="border-borderHeader text-bgWallet w-full h-full overflow-hidden px-4 text-base font-semibold bg-black rounded-lg border focus:outline-none"
                     placeholder="Custom"
                   />
@@ -131,3 +130,4 @@ export default function Home() {
     </main>
   );
 }
+                                                                                                                                                                      
